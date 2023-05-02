@@ -1,0 +1,73 @@
+/*////////////////////////
+    Table of Contents
+    1. Global Styles
+    2. Typography
+    3. Areas
+        3.1 Area 1
+        3.2 Area 2
+        3.3 etc.
+////////////////////////*/
+
+
+/* ------------------------------- 1. Global Styles -------------------------------- */
+
+.create_event_container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+.create_event_content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    color: white;
+}
+.create_event_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.create_event_form label,
+.create_event_form input,
+.create_event_form button,
+.create_event_form select,
+.create_event_form .rmdp-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.create_event_form button {
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 20px;
+    background-color: white;
+    border-color: transparent;
+}
+/* ------------------------------- 2. Typography ----------------------------------- */
+.preview_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    color: white;
+}
+.preview{
+    width: 500px;
+}
+
+
+/* ------------------------------- 3. Areas ---------------------------------------- */
+
+
+/* --------------- 3.1 Area 1 ------------------------- */
+
+
+/* --------------- 3.2 Area 2 ------------------------*/
