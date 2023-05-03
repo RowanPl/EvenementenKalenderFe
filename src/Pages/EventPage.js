@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import axios from "axios";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import './EventPage.css';
 import {AuthContext} from "../Context/AuthContext";
 import DatePicker from "react-multi-date-picker";
@@ -26,7 +26,7 @@ function EventPage() {
     const [category, setCategory] = React.useState("Theater")
     const [imageUrl, setImageUrl] = React.useState("")
     const [eventCreator, setEventCreator] = React.useState("")
-
+    const Navigate = useNavigate();
 
     useEffect(() => {
         fetchData(id)
@@ -134,15 +134,26 @@ function EventPage() {
         }
     }
 
-
     function handleSubmit(e) {
         e.preventDefault()
         setDates([])
         const token = localStorage.getItem('token');
-        void editEvent(token).then(() => {
-                console.log("Event edited")
+        void editEvent(token).then( () => {
+            setEditEvent(false)
+            switch (category) {
+                case "Theater":
+                    Navigate(`/Theater`)
+                    break;
+                case "Muziek":
+                    Navigate(`/Muziek`)
+                    break;
+                case "Dance":
+                    Navigate(`/Dans`)
+                    break;
             }
-        )
+        })
+
+
     }
 
     function handleDateSelect(date) {

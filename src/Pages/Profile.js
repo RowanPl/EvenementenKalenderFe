@@ -119,7 +119,7 @@ function Profile() {
                 );
                 const emailHTML = ReactDOMServer.renderToString(emailBody);
 
-                sendEmail(emailHTML);
+                //  sendEmail(emailHTML);
             })
             .catch(error => console.error(error));
     }

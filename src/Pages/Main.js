@@ -1,4 +1,3 @@
-
 function Main() {
 
     return (
@@ -10,4 +9,5 @@ function Main() {
         </div>
     )
 }
+
 export default Main;

@@ -9,6 +9,6 @@ function Dance() {
             <Calender category="Dance"/>
         </div>
     );
-  }
+}
 
-  export default Dance;
+export default Dance;

@@ -5,6 +5,7 @@ import axios from "axios";
 
 
 export const AuthContext = createContext({});
+
 function AuthContextProvider({children}) {
 
 
@@ -15,9 +16,9 @@ function AuthContextProvider({children}) {
     });
 
 
-    async function fetchUserData(decodedToken, token ,redirectUrl ) {
+    async function fetchUserData(decodedToken, token, redirectUrl) {
         try {
-               const response = await axios.get(`http://localhost:8080/users/${decodedToken.sub}`, {
+            const response = await axios.get(`http://localhost:8080/users/${decodedToken.sub}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
@@ -34,13 +35,12 @@ function AuthContextProvider({children}) {
                     creator: response.data.creator
                 },
                 status: 'done'
-            } )
+            })
 
             if (redirectUrl) {
                 window.location.href = redirectUrl;
             }
-        }
-        catch (error) {
+        } catch (error) {
             console.error(error)
             toggleHasAuth({
                 hasAuth: false,
@@ -56,24 +56,21 @@ function AuthContextProvider({children}) {
         if (token && checkValidationOfJWT(token)) {
             const decoded = jwtDecode(token);
             console.log(decoded)
-            void fetchUserData(decoded, token );
-        }
-        else {
+            void fetchUserData(decoded, token);
+        } else {
             toggleHasAuth({
                 hasAuth: false,
                 user: null,
                 status: 'done',
             });
         }
-    }, [], );
-
-
+    }, [],);
 
 
     function login(token) {
         localStorage.setItem('token', token);
         const decodedToken = jwtDecode(token);
-       void fetchUserData(decodedToken, token, "/");
+        void fetchUserData(decodedToken, token, "/");
     }
 
     function logout() {
@@ -83,7 +80,7 @@ function AuthContextProvider({children}) {
             user: null,
             status: 'done'
         });
-    console.log(hasAuth.hasAuth)
+        console.log(hasAuth.hasAuth)
     }
 
     const contextData = {
@@ -94,12 +91,11 @@ function AuthContextProvider({children}) {
     };
 
 
-
-
     return (
         <AuthContext.Provider value={contextData}>
-            {hasAuth.status === 'done' ? children : <p>Loading...</p> }
+            {hasAuth.status === 'done' ? children : <p>Loading...</p>}
         </AuthContext.Provider>
     )
 }
+
 export default AuthContextProvider;

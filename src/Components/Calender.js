@@ -4,6 +4,7 @@ import "./Calender.css"
 import axios from "axios";
 import {AuthContext} from "../Context/AuthContext";
 import Event from "../Pages/CreateEvent";
+import {useNavigate} from "react-router-dom";
 
 function Calender({category}) {
 
@@ -16,6 +17,7 @@ function Calender({category}) {
     const {token} = useContext(AuthContext);
     const [event, setEvent] = useState(null);
     const [show, setShow] = useState(false);
+    const Navigate = useNavigate()
 
 
     async function getEvents(token, category = null) {
@@ -46,7 +48,6 @@ function Calender({category}) {
     const monthName = daysArray[0].toLocaleString('nl-NL', {month: 'long'});
 
 
-// Generate the HTML elements for the calendar
     const handlePrev = () => {
         setMonth((prevMonth) => (prevMonth === 0 ? 11 : prevMonth - 1));
         setYear((prevYear) => (month === 0 ? prevYear - 1 : prevYear));
@@ -57,31 +58,34 @@ function Calender({category}) {
         setYear((nextYear) => (month === 11 ? nextYear + 1 : nextYear));
     };
 
-    {
-        daysArray.map(day => {
-            // Filter events that occur on this day
-            const dayEvents = events.filter(event => {
-                const eventDate = new Date(event.date);
-                return eventDate.getFullYear() === year && eventDate.getMonth() === month && eventDate.getDate() === day.getDate();
-            });
-        })
-    }
+
+    daysArray.map(day => {
+        // Filter events that occur on this day
+        const dayEvents = events.filter(event => {
+            const eventDate = new Date(event.date);
+            return eventDate.getFullYear() === year && eventDate.getMonth() === month && eventDate.getDate() === day.getDate();
+        });
+    })
+
 
     const handleImageClick = (event) => {
         const eventUrl = `/events/${event.id}`; // replace with your own URL structure
-        window.location.href = eventUrl;
+        Navigate(eventUrl);
     }
 
 
     return (
-        <> <p>{monthName} {year}</p>
+        <>
+            <p>{monthName} {year}</p>
             <div className="calender_button">
                 <button onClick={handlePrev}>Prev</button>
                 <button onClick={handleNext}>Next</button>
                 <button onClick={now}>This Month</button>
             </div>
-            <div className="calender">
-                {daysArray.map(day => {
+            <div className="calender" key={`${month}-${year}-${events.length}`}>
+
+
+            {daysArray.map(day => {
                     // Filter events that occur on this day
                     const dayEvents = events.filter(event => {
                         const eventDates = event.dates.map(date => new Date(date));
@@ -92,10 +96,9 @@ function Calender({category}) {
 
 
                     return (
-                        <>
-                            <div className="calendar-day" key={day}>
+                            <div className="calendar-day" key={day.getTime()}>
                                 <div className={className} onClick={() => setSelectedDate(day)}>
-                                    <div className="day">{day.toLocaleDateString('nl-NL', { weekday: 'short' })}</div>
+                                    <div className="day">{day.toLocaleDateString('nl-NL', {weekday: 'short'})}</div>
                                     <div className="day">{day.getDate()}</div>
                                     <div className="events-container">
                                         {dayEvents.map((event) => (
@@ -109,12 +112,6 @@ function Calender({category}) {
                                     </div>
                                 </div>
                             </div>
-                            {/*{event && event.title && (*/}
-                            {/*    <Event onClose={closeModal} event={event}>*/}
-                            {/*    </Event>*/}
-                            {/*)}*/}
-
-                        </>
                     );
                 })}
             </div>

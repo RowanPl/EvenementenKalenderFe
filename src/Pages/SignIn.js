@@ -2,14 +2,15 @@ import {Link} from "react-router-dom";
 import {useContext, useState} from "react";
 import axios from "axios";
 import {AuthContext} from "../Context/AuthContext";
+import "./SignIn.css"
 
 
-function SignIn() {
+function SignIn({children}) {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, toggleError] = useState(false);
-    const { login } = useContext(AuthContext);
+    const {login} = useContext(AuthContext);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -20,14 +21,11 @@ function SignIn() {
                 username: username,
                 password: password,
             });
-            // log het resultaat in de console
             console.log(result.data);
-
-            // geef de JWT token aan de login-functie van de context mee
 
             login(result.data.jwt);
 
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             toggleError(true);
         }
@@ -35,41 +33,48 @@ function SignIn() {
 
     return (
         <>
-            <h1>Inloggen</h1>
+            {children}
+            <div className="sign_in_bar"></div>
+            <div className="sign_in_container">
+                <h1>Inloggen</h1>
+                <div className="sign_in_form_container">
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor="username-field">
+                            Gebruikersnaam:
+                            <input
+                                type="username"
+                                id="username-field"
+                                name="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </label>
 
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username-field">
-                    username:
-                    <input
-                        type="username"
-                        id="username-field"
-                        name="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </label>
+                        <label htmlFor="password-field">
+                            Wachtwoord:
+                            <input
+                                type="password"
+                                id="password-field"
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </label>
+                        {error && <p className="error">Combinatie van gebruikersnaam en wachtwoord is onjuist</p>}
 
-                <label htmlFor="password-field">
-                    Wachtwoord:
-                    <input
-                        type="password"
-                        id="password-field"
-                        name="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </label>
-                {error && <p className="error">Combinatie van emailadres en wachtwoord is onjuist</p>}
+                        <button
+                            type="submit"
+                            className="form-button"
+                        >
+                            Inloggen
+                        </button>
+                    </form>
+                </div>
+                <div className="sign_in_account">
+                    <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
+                </div>
+            </div>
 
-                <button
-                    type="submit"
-                    className="form-button"
-                >
-                    Inloggen
-                </button>
-            </form>
-
-            <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
         </>
     );
 }

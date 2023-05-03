@@ -23,15 +23,16 @@
 
 
 /* --------------- 3.1 Area 1 ------------------------- */
-.background_container{
+.background_container {
     background-color: #a4a7a2;
     width: 100vw;
     height: 94.3vh;
     display: flex;
-flex-direction: column;
+    flex-direction: column;
     align-items: center;
 }
-.program_container{
+
+.program_container {
     display: flex;
     flex-direction: column;
     justify-content: center;

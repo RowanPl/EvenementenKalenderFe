@@ -13,9 +13,12 @@ import "./Pages/Main.css";
 import Profile from "./Pages/Profile";
 import EventPage from "./Pages/EventPage";
 import CreateEvent from "./Pages/CreateEvent";
+import {useContext} from "react";
+import {AuthContext} from "./Context/AuthContext";
 
 
 function App() {
+  const { hasAuth } = useContext(AuthContext)
   return (
       <>
     <NavBar/>
@@ -29,7 +32,7 @@ function App() {
         <Route path="/alleEvenementen" element={<All/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path={"/createEvent"} element={<CreateEvent/>}/>
-        <Route path="/events/:id" element={<EventPage/>} />
+        <Route path="/events/:id" element={ hasAuth.hasAuth ? <EventPage/> : <SignIn> <p className="required">Je moet ingelogd zijn om evenementen te bekijken</p> </SignIn>} />
 
       </Routes>
         </>
