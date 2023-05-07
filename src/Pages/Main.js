@@ -30,7 +30,7 @@ function Main() {
     }
     return (
         <div className="background_container">
-            <h1>Aankomende events:</h1>
+            <h1>Aankomende evenementen:</h1>
             <div className="program_container">
 
                 {events
