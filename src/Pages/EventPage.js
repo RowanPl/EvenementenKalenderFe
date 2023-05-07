@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, {useContext, useEffect, useState} from 'react';
 import axios from "axios";
 import {useParams, useNavigate} from "react-router-dom";
@@ -15,7 +16,7 @@ function EventPage() {
     const [canEditEvent, setEditEvent] = useState(false);
     const [file, setFile] = useState(null);
     const [auth, setAuth] = useState("");
-    // get the event id from the URL parameter
+
     const {id} = useParams();
     const [dates, setDates] = React.useState([]);
     const [Image, setImage] = React.useState({})
@@ -58,8 +59,9 @@ function EventPage() {
     }
 
     if (!event) {
-        return <><div className={"event_content"}>Deze pagina bestaat niet...</div>
-            <a className={"event_content"} href={'/'}> klik hier om terug te gaan naar het hoofdmenu</a></>;
+        return <>
+            <div className={"event_content_error"}>Deze pagina bestaat niet...
+            <a className={"event_content_error"} href={'/'}> klik hier om terug te gaan naar het hoofdmenu</a></div></>;
     }
 
     function handleDeleteEvent() {
@@ -141,7 +143,7 @@ function EventPage() {
         e.preventDefault()
         setDates([])
         const token = localStorage.getItem('token');
-        void editEvent(token).then( () => {
+        void editEvent(token).then(() => {
             setEditEvent(false)
             switch (category) {
                 case "Theater":
@@ -192,7 +194,7 @@ function EventPage() {
 
                 {event && (user === event.eventCreator || auth === "ADMIN") && (
                     <div className="event_button">
-                        <button onClick={handleDeleteEvent}>Delete</button>
+                        {canDeleteEvent && <button onClick={handleDeleteEvent}>Delete</button> }
                         <button onClick={handleEditEvent}>Edit</button>
                     </div>
                 )}
@@ -201,69 +203,71 @@ function EventPage() {
             {canEditEvent && (
                 <div className="form_container">
                     <div className="form_content">
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor="nameOfEvent">Naam van het event</label>
-                        <input type="text" id="nameOfEvent" name="nameOfEvent" placeholder="Name of Event"
-                               value={nameOfEvent}
-                               onChange={(e) => setNameOfEvent(e.target.value)} required/>
+                        <form onSubmit={handleSubmit}>
+                            <label htmlFor="nameOfEvent">Naam van het event</label>
+                            <input type="text" id="nameOfEvent" name="nameOfEvent" placeholder="Name of Event"
+                                   value={nameOfEvent}
+                                   onChange={(e) => setNameOfEvent(e.target.value)} required/>
 
-                        <label htmlFor="moreInformation">Informatie voor de lezer</label>
+                            <label htmlFor="moreInformation">Informatie voor de lezer</label>
 
-                        <input type="text" id="moreInformation" name="moreInformation" placeholder="More Information"
-                               value={moreInformation}
-                               onChange={(e) => setMoreInformation(e.target.value)} required/>
+                            <input type="text" id="moreInformation" name="moreInformation"
+                                   placeholder="More Information"
+                                   value={moreInformation}
+                                   onChange={(e) => setMoreInformation(e.target.value)} required/>
 
-                        <label htmlFor="location">Locatie</label>
-                        <input type="text" id="location" name="location" placeholder="Location"
-                               value={location}
-                               onChange={(e) => setLocation(e.target.value)} required/>
-
-
-                        <label htmlFor="date">Datum</label>
-                        <DatePicker
-                            multiple
-                            value={dates}
-                            onFocusedDateChange={(dateFocused, dateClicked) => {
-                                handleDateSelect({dateFocused, dateClicked});
-                            }}
-                            plugins={[<DatePanel markFocused/>]}
-                        />
-                        <button type="button" onClick={removeDates}>verwijder datums</button>
-
-                        <label htmlFor="time">Start tijd</label>
-                        <input type="time" id="time" name="time" placeholder="Time"
-                               value={time}
-                               onChange={(e) => setTime(e.target.value)} required/>
-
-                        <label htmlFor="linkToEvent">Link naar het Event</label>
-                        <input type="text" id="linkToEvent" name="linkToEvent"
-                               value={linkToEvent}
-                               onChange={(e) => setLinkToEvent(e.target.value)} placeholder="Link to Event" required/>
-
-                        <label htmlFor="category">Categorie</label>
-                        <select type="radio" id="category" name="category"
-                                value={category}
-                                onChange={(e) => setCategory(e.target.value)}
-                                placeholder="Category" required>
-                            <option value="Theater">Theater</option>
-                            <option value="Music">Muziek</option>
-                            <option value="Dance">Dans</option>
-                        </select>
+                            <label htmlFor="location">Locatie</label>
+                            <input type="text" id="location" name="location" placeholder="Location"
+                                   value={location}
+                                   onChange={(e) => setLocation(e.target.value)} required/>
 
 
-                        <label htmlFor="file">Affiche*</label>
-                        <input type="file" id="file" name="file" onChange={(e) => {
-                            setFile(e.target.files[0]);
-                            const fileImg = e.target.files[0];
-                            console.log(e.target.files);
-                            setImageUrl(URL.createObjectURL(fileImg));
-                            setImage(e.target.files[0]);
-                        }} placeholder="File" required/>
+                            <label htmlFor="date">Datum</label>
+                            <DatePicker
+                                multiple
+                                value={dates}
+                                onFocusedDateChange={(dateFocused, dateClicked) => {
+                                    handleDateSelect({dateFocused, dateClicked});
+                                }}
+                                plugins={[<DatePanel markFocused/>]}
+                            />
+                            <button type="button" onClick={removeDates}>verwijder datums</button>
 
-                        <p>velden met een "*" zijn verplichte velden</p>
-                        <button type="submit"> Pas aan</button>
-                    </form>
-                </div>
+                            <label htmlFor="time">Start tijd</label>
+                            <input type="time" id="time" name="time" placeholder="Time"
+                                   value={time}
+                                   onChange={(e) => setTime(e.target.value)} required/>
+
+                            <label htmlFor="linkToEvent">Link naar het Event</label>
+                            <input type="text" id="linkToEvent" name="linkToEvent"
+                                   value={linkToEvent}
+                                   onChange={(e) => setLinkToEvent(e.target.value)} placeholder="Link to Event"
+                                   required/>
+
+                            <label htmlFor="category">Categorie</label>
+                            <select type="radio" id="category" name="category"
+                                    value={category}
+                                    onChange={(e) => setCategory(e.target.value)}
+                                    placeholder="Category" required>
+                                <option value="Theater">Theater</option>
+                                <option value="Music">Muziek</option>
+                                <option value="Dance">Dans</option>
+                            </select>
+
+
+                            <label htmlFor="file">Affiche*</label>
+                            <input type="file" id="file" name="file" onChange={(e) => {
+                                setFile(e.target.files[0]);
+                                const fileImg = e.target.files[0];
+                                console.log(e.target.files);
+                                setImageUrl(URL.createObjectURL(fileImg));
+                                setImage(e.target.files[0]);
+                            }} placeholder="File" required/>
+
+                            <p>velden met een "*" zijn verplichte velden</p>
+                            <button type="submit"> Pas aan</button>
+                        </form>
+                    </div>
                 </div>
             )}
 

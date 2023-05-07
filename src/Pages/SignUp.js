@@ -4,13 +4,13 @@ import {Link, useNavigate} from "react-router-dom";
 import "./SignUp.css"
 
 function SignUp() {
-    // state voor het formulier
+
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [creator, setCreator] = useState(false);
     const [textError, setError] = useState(null);
-    // state voor functionaliteit
+
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
     const navigate = useNavigate();
@@ -30,10 +30,6 @@ function SignUp() {
                 creator: creator,
             });
 
-            // Let op: omdat we geen axios Canceltoken gebruiken zul je hier een memory-leak melding krijgen.
-            // Om te zien hoe je een canceltoken implementeerd kun je de bonus-branch bekijken!
-
-            // als alles goed gegaan is, linken we door naar de login-pagina
             navigate('/signin');
         } catch (e) {
             console.error(e);
@@ -61,6 +57,7 @@ function SignUp() {
                                 name="isCreator"
                                 checked={creator}
                                 onChange={(e) => setCreator(e.target.checked)}
+
 
                             />
                         </label>

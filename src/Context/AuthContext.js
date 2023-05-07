@@ -72,15 +72,14 @@ function AuthContextProvider({children}) {
         }
     }, [],);
 
-     useEffect(()=> {
-         if (today.getDate() === 25 && hasAuth.user.emailsent === false) {
-             toggleHasAuth({
-                 user: {
-                     shouldSentEmail: true,
-                 }
-             })
-         }
-        else if (today.getDate() !== 26 && hasAuth.user.emailsent === true){
+    useEffect(() => {
+        if (today.getDate() === 25 && hasAuth.user.emailsent === false) {
+            toggleHasAuth({
+                user: {
+                    shouldSentEmail: true,
+                }
+            })
+        } else if (today.getDate() !== 26 && hasAuth.user.emailsent === true) {
             toggleHasAuth({
                 user: {
                     shouldSentEmail: false,
@@ -88,7 +87,7 @@ function AuthContextProvider({children}) {
                 }
             })
         }
-     }, [] );
+    }, []);
 
     function login(token) {
         localStorage.setItem('token', token);

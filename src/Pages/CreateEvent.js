@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-
+import React from 'react';
 import '../Components/Calender.css';
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
@@ -26,7 +25,7 @@ function CreateEvent() {
         const token = localStorage.getItem("token")
         console.log(token);
         try {
-            const result = await axios.post('http://localhost:8080/events', {
+            await axios.post('http://localhost:8080/events', {
                 nameOfEvent: nameOfEvent,
                 moreInformation: moreInformation,
                 location: location,
@@ -44,7 +43,7 @@ function CreateEvent() {
                 console.log(respone)
                 const id = respone.data
                 console.log(id)
-                const imgUpload = await axios.post(`http://localhost:8080/events/${id}/upload?=`, {
+                await axios.post(`http://localhost:8080/events/${id}/upload?=`, {
                     file: Image
                 }, {
                     headers: {
@@ -74,6 +73,8 @@ function CreateEvent() {
             case "Dance":
                 Navigate(`/Dans`)
                 break;
+                default:
+                    Navigate(`/Theater`)
         }
         setDates([])
     }

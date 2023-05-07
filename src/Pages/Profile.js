@@ -22,7 +22,6 @@ function Profile() {
     const [filteredEvents, setFilteredEvents] = useState([]);
 
 
-
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -30,13 +29,13 @@ function Profile() {
         }
     }, []);
 
-     useEffect(()=> {
-       const SentEmail = hasAuth.user.shouldSentEmail
-         if (SentEmail) {
-             handleGetEvents()
-             hasAuth.user.emailSent = true
-         }
-     }, [hasAuth.user.shouldSentEmail] );
+    useEffect(() => {
+        const SentEmail = hasAuth.user.shouldSentEmail
+        if (SentEmail) {
+            handleGetEvents()
+            hasAuth.user.emailSent = true
+        }
+    }, [hasAuth.user.shouldSentEmail]);
 
     function fetchProfileData(token) {
         fetchData()
@@ -89,7 +88,7 @@ function Profile() {
                     },
                 }
             );
-            // Refresh user data
+
             void fetchProfileData(token);
         } catch (e) {
             console.error(e);
@@ -227,7 +226,8 @@ function Profile() {
                     </div>
 
                     {/*deze functie is er alleen om een nieuwsbrief te verzenden naar het desbetreffende email adres, normaal zou dit automatisch verzonden worden*/}
-                    {newsletter && <button className="profile_button" onClick={() => handleGetEvents()}> Test Nieuwsbrief</button>}
+                    {newsletter &&
+                        <button className="profile_button" onClick={() => handleGetEvents()}> Test Nieuwsbrief</button>}
 
                     <p className="text">Terug naar de <Link to="/">Homepagina</Link></p>
                 </div>

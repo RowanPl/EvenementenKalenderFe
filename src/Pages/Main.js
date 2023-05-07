@@ -25,12 +25,12 @@ function Main() {
     }
 
     const handleImageClick = (event) => {
-        const eventUrl = `/events/${event.id}`; // replace with your own URL structure
+        const eventUrl = `/events/${event.id}`;
         Navigate(eventUrl);
     }
     return (
         <div className="background_container">
-            <h1>Aankomende events:</h1>
+            <h1>Aankomende evenementen:</h1>
             <div className="program_container">
 
                 {events

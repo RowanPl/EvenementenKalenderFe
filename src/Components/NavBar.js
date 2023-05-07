@@ -17,12 +17,12 @@ function NavBar() {
 
 
             <nav>
-                { hasAuth.hasAuth === false && <ul className="NavUser">
+                {hasAuth.hasAuth === false && <ul className="NavUser">
                     <li>
                         <NavLink to="/signIn">Login</NavLink>
                     </li>
                     <li className="nav_register">
-                        <NavLink to="/signUp" >Registreren</NavLink>
+                        <NavLink to="/signUp">Registreren</NavLink>
                     </li>
                 </ul>}
                 {hasAuth.hasAuth === true && <ul className="NavUser">
@@ -35,7 +35,7 @@ function NavBar() {
                     <li className="nav_register">
                         <NavLink to="/" onClick={logout}>Log Uit</NavLink>
                     </li>
-                </ul> }
+                </ul>}
 
                 <ul className="NavTheme">
                     <li>
@@ -55,4 +55,5 @@ function NavBar() {
         </div>
     )
 }
-    export default NavBar;
+
+export default NavBar;
