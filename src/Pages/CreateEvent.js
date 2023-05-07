@@ -5,6 +5,7 @@ import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import axios from "axios";
 import "./CreateEvent.css"
+import {useNavigate} from "react-router-dom";
 
 
 function CreateEvent() {
@@ -18,6 +19,7 @@ function CreateEvent() {
     const [time, setTime] = React.useState("")
     const [category, setCategory] = React.useState("Theater")
     const [imageUrl, setImageUrl] = React.useState("")
+    const Navigate = useNavigate()
 
 
     async function handlePostRequest() {
@@ -62,6 +64,17 @@ function CreateEvent() {
         e.preventDefault();
         console.log(dates.map(date => date.year + "-" + (date.months[date.monthIndex].index + 1).toString().padStart(2, "0") + "-" + date.day))
         void handlePostRequest()
+        switch (category) {
+            case "Theater":
+                Navigate(`/Theater`)
+                break;
+            case "Muziek":
+                Navigate(`/Muziek`)
+                break;
+            case "Dance":
+                Navigate(`/Dans`)
+                break;
+        }
         setDates([])
     }
 

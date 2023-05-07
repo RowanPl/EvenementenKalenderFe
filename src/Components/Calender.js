@@ -76,11 +76,13 @@ function Calender({category}) {
 
     return (
         <>
-            <p>{monthName} {year}</p>
+            <p className="month_year">{monthName} {year}</p>
             <div className="calender_button">
                 <button onClick={handlePrev}>Prev</button>
+                {month !== new Date().getMonth() && (
+                    <button onClick={now}>Deze maand</button>
+                )}
                 <button onClick={handleNext}>Next</button>
-                <button onClick={now}>This Month</button>
             </div>
             <div className="calender" key={`${month}-${year}-${events.length}`}>
 
@@ -92,14 +94,14 @@ function Calender({category}) {
                         return eventDates.some(eventDate => eventDate.getFullYear() === year && eventDate.getMonth() === month && eventDate.getDate() === day.getDate());
                     });
                     const isSelectedDate = selectedDate && day.toDateString() === selectedDate.toDateString();
-                    const className = `day_calender_container ${isSelectedDate ? 'selected' : ''}`;
+                    const className = `day_calender_container ${isSelectedDate ? 'today' : ''}`;
 
 
                     return (
                             <div className="calendar-day" key={day.getTime()}>
-                                <div className={className} onClick={() => setSelectedDate(day)}>
-                                    <div className="day">{day.toLocaleDateString('nl-NL', {weekday: 'short'})}</div>
-                                    <div className="day">{day.getDate()}</div>
+                                <div className={className}>
+                                    <p className="day">{day.toLocaleDateString('nl-NL', {weekday: 'short'})}</p>
+                                    <p className="day">{day.getDate()}</p>
                                     <div className="events-container">
                                         {dayEvents.map((event) => (
                                             <img

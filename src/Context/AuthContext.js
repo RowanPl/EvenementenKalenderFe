@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {createContext, useEffect, useState} from "react";
 import checkValidationOfJWT from "../Helpers/CheckValidationOfJWT";
 import jwtDecode from "jwt-decode";
@@ -8,7 +9,7 @@ export const AuthContext = createContext({});
 
 function AuthContextProvider({children}) {
 
-
+    const today = new Date();
     const [hasAuth, toggleHasAuth] = useState({
         hasAuth: false,
         user: Object,
@@ -32,10 +33,15 @@ function AuthContextProvider({children}) {
                     id: response.data.id,
                     username: response.data.username,
                     email: response.data.email,
-                    creator: response.data.creator
+                    creator: response.data.creator,
+                    authority: response.data.authorities[0].authority,
+                    emailSent: false,
+                    shouldSentEmail: false,
                 },
                 status: 'done'
             })
+            console.log(response.data.authorities[0].authority)
+
 
             if (redirectUrl) {
                 window.location.href = redirectUrl;
@@ -66,6 +72,23 @@ function AuthContextProvider({children}) {
         }
     }, [],);
 
+     useEffect(()=> {
+         if (today.getDate() === 25 && hasAuth.user.emailsent === false) {
+             toggleHasAuth({
+                 user: {
+                     shouldSentEmail: true,
+                 }
+             })
+         }
+        else if (today.getDate() !== 26 && hasAuth.user.emailsent === true){
+            toggleHasAuth({
+                user: {
+                    shouldSentEmail: false,
+                    emailSent: false,
+                }
+            })
+        }
+     }, [] );
 
     function login(token) {
         localStorage.setItem('token', token);

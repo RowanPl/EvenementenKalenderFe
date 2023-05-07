@@ -57,10 +57,12 @@
     color: white;
     text-decoration-line: underline;
 }
-
-.profile_content p {
+.profile_content label,
+.text{
     color: white;
 }
+
+
 
 .profile_button {
     width: 33.33%;
@@ -72,6 +74,13 @@
     border-radius: 20px;
     background-color: white;
     border-color: transparent;
+}
+.error {
+    color: #A22522;
+    font-size: 18px;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 /* ------------------------------- 2. Typography ----------------------------------- */

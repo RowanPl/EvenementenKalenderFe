@@ -15,7 +15,9 @@
     margin: 0;
     padding: 0;
 }
-
+body{
+    background-color: #424742;
+}
 /* ------------------------------- 2. Typography ----------------------------------- */
 
 
@@ -34,13 +36,42 @@
 
 .program_container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 90vw;
-    height: 30vh;
+    height: 50vh;
     background-color: #424742;
+    gap: 20px;
+    overflow: auto;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px 5px #2f2f2f;
+}
 
+.program_container img {
+    align-self: center;
+    width: 150px;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+.event_layout {
+    background-color: #a4a7a2;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 440px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px 5px #2f2f2f;
+
+}
+
+.event_layout p {
+    align-self: flex-start;
+    margin-top: 3px;
+}
+.title{
+    font-weight: bold;
 }
 
 /* --------------- 3.2 Area 2 ------------------------ */

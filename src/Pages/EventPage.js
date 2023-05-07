@@ -14,6 +14,7 @@ function EventPage() {
     const [canDeleteEvent, setdeleteEvent] = useState(false);
     const [canEditEvent, setEditEvent] = useState(false);
     const [file, setFile] = useState(null);
+    const [auth, setAuth] = useState("");
     // get the event id from the URL parameter
     const {id} = useParams();
     const [dates, setDates] = React.useState([]);
@@ -31,6 +32,7 @@ function EventPage() {
     useEffect(() => {
         fetchData(id)
         setUser(hasAuth.user.username)
+        setAuth(hasAuth.user.authority)
     }, []);
 
     function fetchData(eventId) {
@@ -56,7 +58,8 @@ function EventPage() {
     }
 
     if (!event) {
-        return <div>Loading...</div>;
+        return <><div className={"event_content"}>Deze pagina bestaat niet...</div>
+            <a className={"event_content"} href={'/'}> klik hier om terug te gaan naar het hoofdmenu</a></>;
     }
 
     function handleDeleteEvent() {
@@ -187,14 +190,13 @@ function EventPage() {
                 }
 
 
-                {event && user === event.eventCreator && (
+                {event && (user === event.eventCreator || auth === "ADMIN") && (
                     <div className="event_button">
-                        {canDeleteEvent && <button onClick={handleDeleteEvent}>Delete</button>}
+                        <button onClick={handleDeleteEvent}>Delete</button>
                         <button onClick={handleEditEvent}>Edit</button>
                     </div>
-
-
                 )}
+
             </div>
             {canEditEvent && (
                 <div className="form_container">

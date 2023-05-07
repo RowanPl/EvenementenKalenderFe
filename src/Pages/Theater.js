@@ -4,7 +4,7 @@ import Calender from "../Components/Calender";
 
 function Theater() {
     return (
-        <div>
+        <div className="container_year_month">
             <h2>Theater</h2>
             <Calender category="Theater"/>
         </div>

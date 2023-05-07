@@ -1,16 +1,17 @@
+/* eslint-disable */
 import axios from "axios";
 import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../Context/AuthContext";
 import {Link} from "react-router-dom";
 import ReactDOMServer from "react-dom/server";
 import emailjs from "emailjs-com";
-import * as events from "events";
 import "./profile.css";
 
 function Profile() {
     const {hasAuth} = useContext(AuthContext);
     const [profileData, setProfileData] = useState(null);
-
+    const [textError, setError] = useState(null);
+    const [error, toggleError] = useState(true);
     const [username, setUsername] = useState(hasAuth.user.username);
     const [email, setEmail] = useState("");
     const [creator, setCreator] = useState(false);
@@ -20,7 +21,7 @@ function Profile() {
     const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
     const [filteredEvents, setFilteredEvents] = useState([]);
 
-    //fetch user
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -28,6 +29,14 @@ function Profile() {
             void fetchProfileData(token);
         }
     }, []);
+
+     useEffect(()=> {
+       const SentEmail = hasAuth.user.shouldSentEmail
+         if (SentEmail) {
+             handleGetEvents()
+             hasAuth.user.emailSent = true
+         }
+     }, [hasAuth.user.shouldSentEmail] );
 
     function fetchProfileData(token) {
         fetchData()
@@ -52,6 +61,7 @@ function Profile() {
                 console.log(result.data)
             } catch (e) {
                 console.error(e);
+
             }
             return function cleanup() {
                 source.cancel();
@@ -59,7 +69,8 @@ function Profile() {
         }
     }
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault()
         const token = localStorage.getItem("token");
         try {
             await axios.put(`http://localhost:8080/users/${username}`,
@@ -82,6 +93,8 @@ function Profile() {
             void fetchProfileData(token);
         } catch (e) {
             console.error(e);
+            setError(e.response.data)
+            toggleError(true)
         }
     }
 
@@ -119,7 +132,7 @@ function Profile() {
                 );
                 const emailHTML = ReactDOMServer.renderToString(emailBody);
 
-                //  sendEmail(emailHTML);
+                sendEmail(emailHTML);
             })
             .catch(error => console.error(error));
     }
@@ -139,7 +152,6 @@ function Profile() {
         }).catch((error) => {
             console.error(error);
         });
-
     }
 
 
@@ -148,9 +160,8 @@ function Profile() {
             <div className="profile_container">
                 <div className="profile_content">
                     <h1>Profielpagina</h1>
-
-
                     <div className="profile_form">
+                        {error && <p className="error"> {textError}</p>}
                         <form onSubmit={handleSubmit}>
                             {profileData && profileData.creator && (<>
                                     <label htmlFor="username">Naam van de organisatie:</label>
@@ -164,6 +175,7 @@ function Profile() {
                                 </>
                             )}
                             {profileData && !profileData.creator && (<>
+
                                     <label htmlFor="username">Gebruikersnaam:</label>
                                     <input
                                         type="text"
@@ -187,6 +199,7 @@ function Profile() {
                                 type="password"
                                 id="password"
                                 name="password"
+
                                 value={password}
                                 placeholder="Laat deze leeg om hem niet te veranderen"
                                 onChange={(event) => setPassword(event.target.value)}
@@ -207,14 +220,16 @@ function Profile() {
                                 checked={creator}
                                 onChange={(e) => setCreator(e.target.checked)}
                             />
+
                             <button type="submit">Update</button>
+
                         </form>
                     </div>
 
                     {/*deze functie is er alleen om een nieuwsbrief te verzenden naar het desbetreffende email adres, normaal zou dit automatisch verzonden worden*/}
-                    <button className="profile_button" onClick={() => handleGetEvents()}> Test Nieuwsbrief</button>
+                    {newsletter && <button className="profile_button" onClick={() => handleGetEvents()}> Test Nieuwsbrief</button>}
 
-                    <p>Terug naar de <Link to="/">Homepagina</Link></p>
+                    <p className="text">Terug naar de <Link to="/">Homepagina</Link></p>
                 </div>
             </div>
         </div>

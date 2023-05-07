@@ -9,6 +9,7 @@ function SignUp() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [creator, setCreator] = useState(false);
+    const [textError, setError] = useState(null);
     // state voor functionaliteit
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
@@ -36,6 +37,7 @@ function SignUp() {
             navigate('/signin');
         } catch (e) {
             console.error(e);
+            setError(e.response.data)
             toggleError(true);
         }
 
@@ -49,6 +51,7 @@ function SignUp() {
             <div className="signup_background_container">
                 <h1>Registreren</h1>
                 <div className="signup_form_container">
+                    {error && <p className="error">{textError}</p>}
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="isCreator">
                             Ben je een cultuur aanbieder?
@@ -58,6 +61,7 @@ function SignUp() {
                                 name="isCreator"
                                 checked={creator}
                                 onChange={(e) => setCreator(e.target.checked)}
+
                             />
                         </label>
                         {creator === false && <label htmlFor="username-field">
@@ -67,6 +71,7 @@ function SignUp() {
                                 id="username-field"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
+                                required={true}
                             />
                         </label>}
                         {creator === true && <label htmlFor="username-field">
@@ -76,6 +81,7 @@ function SignUp() {
                                 id="username-field"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
+                                required={true}
                             />
                         </label>}
 
@@ -87,6 +93,7 @@ function SignUp() {
                                 name="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                required={true}
                             />
                         </label>
 
@@ -98,6 +105,7 @@ function SignUp() {
                                 name="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                required={true}
                             />
                         </label>
                         {creator === false && <label htmlFor="newsletter-field">

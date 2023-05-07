@@ -58,7 +58,29 @@
     height: 125px;
     margin-right: 5px;
 }
+.month_year{
+    color: white;
+}
+h2{
+    color: white;
+}
 
+.container_year_month{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container_year_month button{
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: white;
+}
+
+.today p{
+    font-weight: bold;
+}
 
 /* --------------- 3.1 Area 1 ------------------------- */
 

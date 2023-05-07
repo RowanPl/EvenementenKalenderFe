@@ -6,8 +6,6 @@ import {AuthContext} from "../Context/AuthContext";
 function NavBar() {
     const {hasAuth, logout} = useContext(AuthContext);
 
-    console.log(hasAuth)
-
     return (
         <div className="NavBar">
             <Link to="/">
@@ -29,10 +27,10 @@ function NavBar() {
                 </ul>}
                 {hasAuth.hasAuth === true && <ul className="NavUser">
                     <li>
-                        <NavLink to="/profile">Profile</NavLink>
+                        <NavLink to="/profile">Profiel</NavLink>
                     </li>
                     {hasAuth.user.creator === true && <li>
-                        <NavLink to="/createEvent">Create Event</NavLink>
+                        <NavLink to="/createEvent">Maak nieuw event</NavLink>
                     </li>}
                     <li className="nav_register">
                         <NavLink to="/" onClick={logout}>Log Uit</NavLink>

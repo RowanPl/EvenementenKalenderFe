@@ -4,7 +4,7 @@ import React from "react";
 
 function Dance() {
     return (
-        <div>
+        <div className="container_year_month">
             <h2>Dans</h2>
             <Calender category="Dance"/>
         </div>

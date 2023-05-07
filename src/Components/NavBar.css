@@ -11,19 +11,22 @@
 
 /* ------------------------------- 1. Global Styles -------------------------------- */
 
-ul{
+ul {
     list-style: none;
 }
-a{
+
+a {
     text-decoration: none;
     border-bottom: 2px solid transparent;
     color: black;
     font-size: 18px;
     display: flex;
 }
-.active{
+
+.active {
     border-bottom: 2px solid black;
 }
+
 /* ------------------------------- 2. Typography ----------------------------------- */
 
 
@@ -36,19 +39,21 @@ a{
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 100vw;
+    width: 100%;
     height: auto;
 }
-.NavList{
+
+.NavList {
     display: flex;
-    width: 100%;
+    width: 99%;
     justify-content: flex-end;
 
 }
-.NavTheme{
+
+.NavTheme {
     display: flex;
-    gap: 10vw;
-    justify-content: center;
+    gap: 100px;
+    justify-content: flex-end;
     align-items: center;
 }
 
@@ -56,24 +61,25 @@ a{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    width: 10vw;
+    width: auto ;
     gap: 10px;
     align-items: center;
+    margin-right: 10px;
 
 
 }
-nav{
+
+nav {
     display: flex;
-    flex-direction:row-reverse;
+    flex-direction: row-reverse;
     gap: 20vw;
     width: 100%;
 }
 
 
-
 /* --------------- 3.2 Area 2 ------------------------ */
 
-.nav_register{
- background-color: #696969;
+.nav_register {
+    background-color: #696969;
     padding: 8px;
 }
