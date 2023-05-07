@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 
 
-function checkValidationOfJWT(token){
+function checkValidationOfJWT(token) {
 
     const decodedToken = jwtDecode(token);
     const expirationUnix = decodedToken.exp;
@@ -11,4 +11,5 @@ function checkValidationOfJWT(token){
     return expirationUnix > nowInUnix;
 
 }
+
 export default checkValidationOfJWT;

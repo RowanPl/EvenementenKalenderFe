@@ -1,22 +1,12 @@
 /*////////////////////////
     Table of Contents
-    1. Global Styles
-    2. Typography
-    3. Areas
-        3.1 Area 1
-        3.2 Area 2
-        3.3 etc.
+    1.  Styles
 ////////////////////////*/
 
 
-/* ------------------------------- 1. Global Styles -------------------------------- */
+/* ------------------------------- 1.  Styles -------------------------------- */
 
-/* ------------------------------- 2. Typography ----------------------------------- */
-
-
-/* ------------------------------- 3. Areas ---------------------------------------- */
-
-.day_calender_container{
+.day_calender_container {
     margin-left: 10px;
     display: flex;
     height: 200px;
@@ -28,7 +18,8 @@
     margin-top: 10px;
     background-color: white;
 }
-.calender{
+
+.calender {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
@@ -36,12 +27,13 @@
     background-color: #424742;
 }
 
-.calender_button{
+.calender_button {
     display: flex;
     gap: 10px;
     margin-left: 10px;
 }
-.day{
+
+.day {
     margin: 5px;
 }
 
@@ -58,19 +50,22 @@
     height: 125px;
     margin-right: 5px;
 }
-.month_year{
-    color: white;
-}
-h2{
+
+.month_year {
     color: white;
 }
 
-.container_year_month{
+h2 {
+    color: white;
+}
+
+.container_year_month {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.container_year_month button{
+
+.container_year_month button {
     margin: 5px;
     padding: 5px;
     border-radius: 5px;
@@ -78,11 +73,6 @@ h2{
     background-color: white;
 }
 
-.today p{
+.today p {
     font-weight: bold;
 }
-
-/* --------------- 3.1 Area 1 ------------------------- */
-
-
-/* --------------- 3.2 Area 2 ------------------------*/

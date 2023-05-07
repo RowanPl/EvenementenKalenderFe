@@ -15,9 +15,11 @@
     margin: 0;
     padding: 0;
 }
-body{
+
+body {
     background-color: #424742;
 }
+
 /* ------------------------------- 2. Typography ----------------------------------- */
 
 
@@ -70,7 +72,8 @@ body{
     align-self: flex-start;
     margin-top: 3px;
 }
-.title{
+
+.title {
     font-weight: bold;
 }
 

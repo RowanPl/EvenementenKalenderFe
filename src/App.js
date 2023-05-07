@@ -1,4 +1,3 @@
-
 import './App.css';
 import NavBar from "./Components/NavBar";
 import {Route, Routes} from "react-router-dom";
@@ -18,25 +17,26 @@ import {AuthContext} from "./Context/AuthContext";
 
 
 function App() {
-  const { hasAuth } = useContext(AuthContext)
-  return (
-      <>
-    <NavBar/>
-      <Routes>
-        <Route path="/" element={<Main/>}/>
-        <Route path="/theater" element={<Theater/>}/>
-        <Route path="/muziek" element={<Music/>}/>
-        <Route path="/dans" element={<Dance/>}/>
-        <Route path="/signIn" element={<SignIn/>}/>
-        <Route path="/signUp" element={<SignUp/>}/>
-        <Route path="/alleEvenementen" element={<All/>}/>
-        <Route path="/profile" element={<Profile/>}/>
-        <Route path={"/createEvent"} element={<CreateEvent/>}/>
-        <Route path="/events/:id" element={ hasAuth.hasAuth ? <EventPage/> : <SignIn> <p className="required">Je moet ingelogd zijn om evenementen te bekijken</p> </SignIn>} />
+    const {hasAuth} = useContext(AuthContext)
+    return (
+        <>
+            <NavBar/>
+            <Routes>
+                <Route path="/" element={<Main/>}/>
+                <Route path="/theater" element={<Theater/>}/>
+                <Route path="/muziek" element={<Music/>}/>
+                <Route path="/dans" element={<Dance/>}/>
+                <Route path="/signIn" element={<SignIn/>}/>
+                <Route path="/signUp" element={<SignUp/>}/>
+                <Route path="/alleEvenementen" element={<All/>}/>
+                <Route path="/profile" element={<Profile/>}/>
+                <Route path={"/createEvent"} element={<CreateEvent/>}/>
+                <Route path="/events/:id" element={hasAuth.hasAuth ? <EventPage/> :
+                    <SignIn><p className="required">Je moet ingelogd zijn om evenementen te bekijken</p></SignIn>}/>
 
-      </Routes>
+            </Routes>
         </>
-  );
+    );
 }
 
 export default App;

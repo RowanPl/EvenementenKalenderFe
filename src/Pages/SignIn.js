@@ -18,8 +18,7 @@ function SignIn({children}) {
 
         try {
             const result = await axios.post('http://localhost:8080/authenticate', {
-                username: username,
-                password: password,
+                username: username, password: password,
             });
             console.log(result.data);
 
@@ -31,8 +30,7 @@ function SignIn({children}) {
         }
     }
 
-    return (
-        <>
+    return (<>
             {children}
             <div className="sign_in_bar"></div>
             <div className="sign_in_container">
@@ -75,8 +73,7 @@ function SignIn({children}) {
                 </div>
             </div>
 
-        </>
-    );
+        </>);
 }
 
 export default SignIn;

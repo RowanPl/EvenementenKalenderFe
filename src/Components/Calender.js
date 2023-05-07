@@ -1,4 +1,4 @@
-//eslint-disable
+/* eslint-disable */
 import React, {useContext, useEffect, useState} from "react";
 import "./Calender.css"
 import axios from "axios";
@@ -8,15 +8,14 @@ import {useNavigate} from "react-router-dom";
 
 function Calender({category}) {
 
-    // Get the current year and month
     const currentDate = new Date();
     const [year, setYear] = useState(currentDate.getFullYear());
     const [month, setMonth] = useState(currentDate.getMonth());
     const [events, setEvents] = useState([]);
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedDate] = useState(new Date());
     const {token} = useContext(AuthContext);
-    const [event, setEvent] = useState(null);
-    const [show, setShow] = useState(false);
+    const [event] = useState(null);
+    const [show] = useState(false);
     const Navigate = useNavigate()
 
 
@@ -42,7 +41,6 @@ function Calender({category}) {
         setYear(currentDate.getFullYear());
     }
 
-// Create an array of date objects for the days of the month
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const daysArray = Array.from({length: daysInMonth}, (_, i) => new Date(year, month, i + 1));
     const monthName = daysArray[0].toLocaleString('nl-NL', {month: 'long'});
@@ -69,7 +67,7 @@ function Calender({category}) {
 
 
     const handleImageClick = (event) => {
-        const eventUrl = `/events/${event.id}`; // replace with your own URL structure
+        const eventUrl = `/events/${event.id}`;
         Navigate(eventUrl);
     }
 
@@ -87,7 +85,7 @@ function Calender({category}) {
             <div className="calender" key={`${month}-${year}-${events.length}`}>
 
 
-            {daysArray.map(day => {
+                {daysArray.map(day => {
                     // Filter events that occur on this day
                     const dayEvents = events.filter(event => {
                         const eventDates = event.dates.map(date => new Date(date));
@@ -98,22 +96,22 @@ function Calender({category}) {
 
 
                     return (
-                            <div className="calendar-day" key={day.getTime()}>
-                                <div className={className}>
-                                    <p className="day">{day.toLocaleDateString('nl-NL', {weekday: 'short'})}</p>
-                                    <p className="day">{day.getDate()}</p>
-                                    <div className="events-container">
-                                        {dayEvents.map((event) => (
-                                            <img
-                                                key={event.id}
-                                                alt={`${event.eventCreator} - ${event.title}`}
-                                                src={event.file?.url || `https://via.placeholder.com/150?text=${event.eventCreator}`}
-                                                onClick={() => handleImageClick(event)}
-                                            />
-                                        ))}
-                                    </div>
+                        <div className="calendar-day" key={day.getTime()}>
+                            <div className={className}>
+                                <p className="day">{day.toLocaleDateString('nl-NL', {weekday: 'short'})}</p>
+                                <p className="day">{day.getDate()}</p>
+                                <div className="events-container">
+                                    {dayEvents.map((event) => (
+                                        <img
+                                            key={event.id}
+                                            alt={`${event.eventCreator} - ${event.title}`}
+                                            src={event.file?.url || `https://via.placeholder.com/150?text=${event.eventCreator}`}
+                                            onClick={() => handleImageClick(event)}
+                                        />
+                                    ))}
                                 </div>
                             </div>
+                        </div>
                     );
                 })}
             </div>

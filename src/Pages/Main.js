@@ -25,7 +25,7 @@ function Main() {
     }
 
     const handleImageClick = (event) => {
-        const eventUrl = `/events/${event.id}`; // replace with your own URL structure
+        const eventUrl = `/events/${event.id}`;
         Navigate(eventUrl);
     }
     return (
