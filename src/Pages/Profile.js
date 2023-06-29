@@ -4,7 +4,6 @@ import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../Context/AuthContext";
 import {Link} from "react-router-dom";
 import ReactDOMServer from "react-dom/server";
-import emailjs from "emailjs-com";
 import "./profile.css";
 
 function Profile() {
@@ -113,46 +112,54 @@ function Profile() {
                 });
 
                 const emailBody = (
-                    <div>
+                    <body>
                         <h2>Evenementen van deze maand</h2>
                         <ul>
                             {filteredEvents.map(event => (
                                 <li key={event.id}>
                                     <h3>{event.nameOfEvent}</h3>
-                                    <img src={`https://via.placeholder.com/150?text=${event.eventCreator}`}
-                                         alt={event.nameOfEvent} style={{width: '100px', height: '200px'}}/>
+                                    <img
+                                        src='http://localhost:8080/download/Obelix1.png'
+                                        alt={event.nameOfEvent} style={{width: '100px', height: '200px'}}/>
                                     <p>Datum: {event.dates.join(', ').replace(/,/g, ' , ')}</p>
                                     <p>Locatie: {event.location}</p>
                                     <a href={event.linkToEvent}>Meer informatie</a>
                                 </li>
                             ))}
                         </ul>
-                    </div>
+                    </body>
                 );
                 const emailHTML = ReactDOMServer.renderToString(emailBody);
+                console.log(emailHTML)
+                async function SendEmail() {
+                    const token = localStorage.getItem("token");
+                    sendEmailRequest()
 
-                sendEmail(emailHTML);
+                    function sendEmailRequest() {
+                        axios.post("http://localhost:8080/events/sendEmail", {
+                            toEmail: email,
+                            subject: "Evenementen van deze maand",
+                            text: emailHTML,
+                        }, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                Authorization: `Bearer ${token}`
+                            }
+                        })
+                            .then(response => {
+                                console.log("Email sent", response.data);
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    }
+                }
+
+                SendEmail();
+            }).catch(error => {
+                console.error(error);
             })
-            .catch(error => console.error(error));
     }
-
-    function sendEmail(emailBody) {
-        const serviceID = 'service_17wp89l';
-        const templateID = 'template_82aaogs';
-
-        emailjs.init('7pjUoxBUguvop8AvM');
-        emailjs.send(serviceID, templateID, {
-            to_name: username,
-            to_email: email,
-            my_html: emailBody,
-
-        }).then((result) => {
-            console.log('Email sent successfully');
-        }).catch((error) => {
-            console.error(error);
-        });
-    }
-
 
     return (
         <div className="profile_display">
