@@ -1,7 +1,8 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
 import "./SignUp.css"
+import {AuthContext} from "../Context/AuthContext";
 
 function SignUp() {
 
@@ -10,7 +11,7 @@ function SignUp() {
     const [password, setPassword] = useState('');
     const [creator, setCreator] = useState(false);
     const [textError, setError] = useState(null);
-
+    const {hasAuth} = useContext(AuthContext);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ function SignUp() {
         toggleLoading(true);
 
         try {
-            await axios.post('http://localhost:8080/users', {
+            await axios.post(`http://${hasAuth.ip}/users`, {
                 email: email,
                 password: password,
                 username: username,

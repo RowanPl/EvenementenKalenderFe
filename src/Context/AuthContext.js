@@ -11,6 +11,7 @@ function AuthContextProvider({children}) {
 
     const today = new Date();
     const [hasAuth, toggleHasAuth] = useState({
+        ip: "192.168.2.27",
         hasAuth: false,
         user: Object,
         status: 'pending'
@@ -19,7 +20,7 @@ function AuthContextProvider({children}) {
 
     async function fetchUserData(decodedToken, token, redirectUrl) {
         try {
-            const response = await axios.get(`http://localhost:8080/users/${decodedToken.sub}`, {
+            const response = await axios.get(`http://192.168.2.25/users/${decodedToken.sub}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,

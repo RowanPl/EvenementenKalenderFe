@@ -42,7 +42,7 @@ function Profile() {
         async function fetchData() {
             const source = axios.CancelToken.source();
             try {
-                const result = await axios.get(`http://localhost:8080/users/${username}`, {
+                const result = await axios.get(`http://${hasAuth.ip}/users/${username}`, {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
