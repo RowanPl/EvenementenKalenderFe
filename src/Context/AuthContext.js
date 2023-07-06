@@ -8,15 +8,14 @@ import axios from "axios";
 export const AuthContext = createContext({});
 
 function AuthContextProvider({children}) {
-
+    const ip = "192.168.2.27:8080";
     const today = new Date();
     const [hasAuth, toggleHasAuth] = useState({
-        ip: "192.168.2.27",
+        ip: ip,
         hasAuth: false,
         user: Object,
         status: 'pending'
     });
-
 
     async function fetchUserData(decodedToken, token, redirectUrl) {
         try {
@@ -29,6 +28,7 @@ function AuthContextProvider({children}) {
 
             console.log(response.data)
             toggleHasAuth({
+                ip: ip,
                 hasAuth: true,
                 user: {
                     id: response.data.id,
@@ -50,6 +50,7 @@ function AuthContextProvider({children}) {
         } catch (error) {
             console.error(error)
             toggleHasAuth({
+                ip: ip,
                 hasAuth: false,
                 user: null,
                 status: 'done'
@@ -66,6 +67,7 @@ function AuthContextProvider({children}) {
             void fetchUserData(decoded, token);
         } else {
             toggleHasAuth({
+                ip:ip,
                 hasAuth: false,
                 user: null,
                 status: 'done',
@@ -99,6 +101,7 @@ function AuthContextProvider({children}) {
     function logout() {
         localStorage.clear();
         toggleHasAuth({
+            ip: ip,
             hasAuth: false,
             user: null,
             status: 'done'
