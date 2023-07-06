@@ -19,7 +19,7 @@ function CreateEvent() {
     const [time, setTime] = React.useState("")
     const [category, setCategory] = React.useState("Theater")
     const [imageUrl, setImageUrl] = React.useState("")
-    const [hasAuth] = useContext(AuthContext)
+    const {hasAuth} = useContext(AuthContext);
     const Navigate = useNavigate()
 
 
