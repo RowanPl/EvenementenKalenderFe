@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import '../Components/Calender.css';
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import axios from "axios";
 import "./CreateEvent.css"
 import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../Context/AuthContext";
 
 
 function CreateEvent() {
@@ -18,6 +19,7 @@ function CreateEvent() {
     const [time, setTime] = React.useState("")
     const [category, setCategory] = React.useState("Theater")
     const [imageUrl, setImageUrl] = React.useState("")
+    const [hasAuth] = useContext(AuthContext)
     const Navigate = useNavigate()
 
 
@@ -25,7 +27,7 @@ function CreateEvent() {
         const token = localStorage.getItem("token")
         console.log(token);
         try {
-            await axios.post('http://192.168.2.25//events', {
+            await axios.post(`http://${hasAuth.ip}/events`, {
                 nameOfEvent: nameOfEvent,
                 moreInformation: moreInformation,
                 location: location,
@@ -43,7 +45,7 @@ function CreateEvent() {
                 console.log(respone)
                 const id = respone.data
                 console.log(id)
-                await axios.post(`http://localhost:8080/events/${id}/upload?=`, {
+                await axios.post(`http://${hasAuth.ip}/events/${id}/upload?=`, {
                     file: Image
                 }, {
                     headers: {
