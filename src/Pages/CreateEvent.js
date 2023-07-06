@@ -25,7 +25,7 @@ function CreateEvent() {
         const token = localStorage.getItem("token")
         console.log(token);
         try {
-            await axios.post('http://localhost:8080/events', {
+            await axios.post('http://192.168.2.25//events', {
                 nameOfEvent: nameOfEvent,
                 moreInformation: moreInformation,
                 location: location,

@@ -11,13 +11,14 @@ function SignIn({children}) {
     const [password, setPassword] = useState('');
     const [error, toggleError] = useState(false);
     const {login} = useContext(AuthContext);
+    const {hasAuth} = useContext(AuthContext);
 
     async function handleSubmit(e) {
         e.preventDefault();
         toggleError(false);
 
         try {
-            const result = await axios.post('http://localhost:8080/authenticate', {
+            const result = await axios.post(`http://${hasAuth.ip}/authenticate`, {
                 username: username, password: password,
             });
             console.log(result.data);

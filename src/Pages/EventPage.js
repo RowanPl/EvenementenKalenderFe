@@ -121,7 +121,7 @@ function EventPage() {
 
             async function uploadImage(token) {
                 console.log(id)
-                const imgUpload = await axios.post(`http://localhost:8080/events/${id}/upload?=`, {
+                const imgUpload = await axios.post(`http://192.168.2.25/events/${id}/upload?=`, {
                     file: Image || event.file,
                 }, {
                     headers: {

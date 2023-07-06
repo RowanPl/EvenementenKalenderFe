@@ -9,6 +9,7 @@ import {useNavigate} from "react-router-dom";
 function Calender({category}) {
 
     const currentDate = new Date();
+    const {hasAuth} = useContext(AuthContext);
     const [year, setYear] = useState(currentDate.getFullYear());
     const [month, setMonth] = useState(currentDate.getMonth());
     const [events, setEvents] = useState([]);
@@ -21,7 +22,7 @@ function Calender({category}) {
 
     async function getEvents(token, category = null) {
         try {
-            let url = "http://localhost:8080/events";
+            let url = `http://${hasAuth.ip}/events`;
             if (category) {
                 url += `/category/${category}`;
             }
