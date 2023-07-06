@@ -20,7 +20,7 @@ function AuthContextProvider({children}) {
 
     async function fetchUserData(decodedToken, token, redirectUrl) {
         try {
-            const response = await axios.get(`http://192.168.2.25/users/${decodedToken.sub}`, {
+            const response = await axios.get(`http://${hasAuth.ip}/users/${decodedToken.sub}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
